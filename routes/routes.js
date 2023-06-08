@@ -7,7 +7,7 @@ router.route('/api/employees')
     .get(getAllEmployees)
     .post(createEmployee)
 router.route('/api/employees/:id')
-    // .get(getEmployee)
+    .get(getEmployee)
     // .patch(updateEmployee)
     .delete(deleteEmployee)
 
