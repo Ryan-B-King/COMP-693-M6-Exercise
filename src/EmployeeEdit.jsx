@@ -25,7 +25,29 @@ export default class EmployeeEdit extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault()
-        console.log('You submitted')
+        const form = document.forms.employeeUpdate 
+        let id = form.id.value 
+        let name = form.name.value 
+        let extension = form.extension.value 
+        let email = form.email.value 
+        let title = form.title.value
+        let currentlyEmployed = form.currentlyEmployed.checked 
+
+        let url = `/api/employees/${id}`
+        fetch(url, {
+            method: 'PATCH',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json;charset=UTF-8',
+            },
+            body: JSON.stringify({
+                "name": name,
+                "extention": extension,
+                "email": email,
+                "title": title,
+                'currentlyEmployed': currentlyEmployed
+            }),
+        })
     }
 
     render() {
@@ -33,19 +55,19 @@ export default class EmployeeEdit extends React.Component {
             <form name='employeeUpdate' onSubmit={this.handleSubmit}>
                 <h1>Edit {this.state.employee.name}</h1>
                 ID:<br/>
-                <input type='text' name='id' readOnly='readOnly' /><br/>
+                <input type='text' name='id' readOnly='readOnly' defaultValue={this.state.employee._id} /><br/>
                 Name:<br/>
-                <input type='text' name='name' /><br/>
+                <input type='text' name='name' defaultValue={this.state.employee.name} /><br/>
                 Extension:<br/>
-                <input type='text' name='extension' /><br/>
+                <input type='text' name='extension' defaultValue={this.state.employee.extension} /><br/>
                 Email:<br/>
-                <input type='text' name='email' /><br/>
+                <input type='text' name='email' defaultValue={this.state.employee.email} /><br/>
                 Title:<br/>
-                <input type='text' name='title' /><br/>
+                <input type='text' name='title' defaultValue={this.state.employee.title}/><br/>
                 Date Hired:<br/>
-                <input type='text' name='dateHired' readOnly='readOnly'/><br/>
+                <input type='text' name='dateHired' readOnly='readOnly' defaultValue={this.state.employee.dateHired}/><br/>
                 Currently Employed?<br/>
-                <input type='checkbox' name='currentlyEmployed' /><br/>
+                <input type='checkbox' name='currentlyEmployed' defaultChecked={this.state.employee.currentlyEmployed} /><br/>
                 <br/><br/>
                 <input type='submit' value='Update' /> 
             </form>
