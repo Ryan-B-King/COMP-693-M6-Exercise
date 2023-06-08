@@ -48,6 +48,10 @@ export default class EmployeeEdit extends React.Component {
                 'currentlyEmployed': currentlyEmployed
             }),
         })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('message').innerHTML = data.msg
+        })
     }
 
     render() {
@@ -70,6 +74,7 @@ export default class EmployeeEdit extends React.Component {
                 <input type='checkbox' name='currentlyEmployed' defaultChecked={this.state.employee.currentlyEmployed} /><br/>
                 <br/><br/>
                 <input type='submit' value='Update' /> 
+                <p id='message'></p>
             </form>
         )
     }
